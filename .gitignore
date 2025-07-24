@@ -1,33 +1,71 @@
-HELP.md
-target/
+# Compiled class files
+*.class
+
+# Package Files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Maven/Gradle build output directories
+/target/
+/build/
+
+# Maven wrapper files (executable scripts are usually kept, but the downloaded JAR can be ignored)
 .mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Log files
+*.log
+logs/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+# IDE specific files and directories
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# NetBeans userdir/cache files (sometimes generated outside project root, but good to have)
+# /~/.netbeans/
 
-### VS Code ###
+# IntelliJ IDEA (common for many Java devs)
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Eclipse (common for many Java devs)
+.classpath
+.project
+.settings/
+.factorypath
+.apt_generated
+.springBeans
+.sts4-cache # STS specific
+
+# VS Code
 .vscode/
+
+# Operating System Files
+.DS_Store # macOS
+Thumbs.db # Windows
+.localized
+ehthumbs.db
+Desktop.ini
+
+# Environment variables files (often contain sensitive info)
+.env
+.env.*
+
+# Generated test reports/output
+/test-output/
+/surefire-reports/
+/failsafe-reports/
+
+# Other temporary files
+*~
+*.bak
+*.swp
