@@ -58,7 +58,7 @@ Puedes usar parámetros de consulta como `/api/posts?page=0&size=10&sort=title,a
 
 1.  **Clonar el repositorio:**
     ```bash
-    git clone [https://github.com/tu-usuario/tu-repositorio.git](https://github.com/tu-usuario/tu-repositorio.git)
+    git clone https://github.com/RodolfoRadaelli/API-blog.git
     cd tu-repositorio
     ```
 2.  **Configurar la base de datos:**
