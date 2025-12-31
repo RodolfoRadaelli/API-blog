@@ -12,6 +12,8 @@ Este repositorio es una API RESTful para gestionar posts en un sistema de blog. 
 * **Lombok**
 * **Validation**
 * **Lombok**
+* **Spring Security**
+* **JWT**
 
 ## Funcionalidades (CRUD Básico)
 
@@ -21,6 +23,8 @@ Esta API proporciona las siguientes funcionalidades principales para la entidad 
 * **Leer (Read):** Permite obtener Post individuales o una lista de todos los post usando Pagination and sorting.
 * **Actualizar (Update):** Permite modificar Post existentes.
 * **Eliminar (Delete):** Permite borrar Post.
+* **Login:** Permite auntenticar al usuario para acceder a posts.
+* **Crear usuarios:** Permite crear usuarios nuevos.
 
 ## **Características Destacadas / Funcionalidades Adicionales**
 
@@ -39,9 +43,14 @@ Los datos se intercambian en formato **JSON**.
 | :---------- | :----------------------------- | :---------------------------------------------- | :------------------------------------------------------- | :----------------------------------------------------------- |
 | `GET`       | `/api/posts`        | Obtiene todos los posts.                  | `(Ninguno)`                                              | `[ { "id": 1, "title": "valor", "content": "valor", "author": "valor" } ]`                  |
 | `GET`       | `/api/posts/{id}`   | Obtiene un post por su ID.                 | `(Ninguno)`                                              | ` { "id": 1, "title": "valor", "content": "valor", "author": "valor" } `                    |
-| `POST`      | `/api/posts`        | Crea un nuevo post.                        | ` { "title": "valor", "content": "valor", "author": "valor" } `             | ` { "id": 2, "title": "valor", "content": "valor", "author": "valor" } |
+| `POST`      | `/api/posts`        | Crea un nuevo post.                        | ` { "title": "valor", "content": "valor", "author": "valor" } `             | ` { "id": 2, "title": "valor", "content": "valor", "author": "valor" } `  |
 | `PUT`       | `/api/posts/{id}`   | Actualiza un post existente por su ID.     | ` { "title": "valor", "content": "valor", "author": "valor" } `  | ` { "id": 1, "title": "valor", "content": "valor", "author": "valor" } `              |
 | `DELETE`    | `/api/posts/{id}`   | Elimina un post por su ID.                 | `(Ninguno)`                                              | `(Ninguno) - Status 204 No Content`                        |
+| `GET`       | `/home`        | home publica                  | `(Ninguno)`                                              |  `(Ninguno)`                  |
+| `GET`       | `/admin/home`        | home accesible solo para ROLE_ADMIN                  | `(Ninguno)`                                              |  `(Ninguno)`                  |
+| `GET`       | `/user/home`        | home accesible para ROLE_USER                  | `(Ninguno)`                                              |  `(Ninguno)`                  |
+| `POST`      | `/authenticate`        | Autentica al usuario                        | ` { "username": "valor", "password": "valor" } `             | ` (Ninguno) - Clave JWT` |
+| `POST`      | `/register/user`        | Registra nuevo usuario                        | ` { "username": "valor", "password": "valor", "role": "ROLE_ADMIN" OR "ROLE_USER" } `             | ` (Ninguno) - Clave JWT` |
 
 *Nota sobre Paginación y Ordenamiento:*
 Puedes usar parámetros de consulta como `/api/posts?page=0&size=10&sort=title,asc` para paginar y ordenar los resultados.
@@ -79,6 +88,9 @@ La API estará disponible en `http://localhost:8080`.
 ## Cómo Probar la API
 
 La API viene cargada con datos por defecto, puede consultarse desde `http://localhost:8080/api/posts`
+    También vienen cargados con dos usuarios:
+        Admin: Admin, 1234, ROLE_ADMIN
+        Usuario: Mauro123, 1234, ROLE_USER
 
 ## Licencia
 
