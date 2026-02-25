@@ -26,66 +26,59 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
-    private final PostService postService;
-    
-    @Autowired
-    PostController(PostService postService){
-        this.postService = postService;
-    }
-    
-    
-    @GetMapping
-    public ResponseEntity<Page<PostDto>> getAllPosts(
-            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
-        Page<PostDto> postPage = postService.findAllPost(pageable);
-        return ResponseEntity.ok(postPage);
-    }
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<Post> getPostById(@PathVariable Long id){
-        Post post = postService.findPostById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No existe el post."));
-        
-        return ResponseEntity.ok(post);
+	private final PostService postService;
 
-        
-       
-    }
-    
-    @PostMapping
-    public ResponseEntity<Post> createPost (@Valid @RequestBody Post post){
-        Post createdPost = postService.createPost(post);
-        
-        return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
-    }
- 
-    @PutMapping("/{id}")
-    public ResponseEntity<Post> updatePost(@Valid @PathVariable Long id,
-            @RequestBody Post postDetails){
-       Post updatePost = postService.updatePost(id, postDetails)
-               .orElseThrow(() -> new ResourceNotFoundException("No existe el post a actualizar."));
+	@Autowired
+	PostController(PostService postService) {
+		this.postService = postService;
+	}
 
-       return ResponseEntity.ok(updatePost);
-   }
-    
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Post> deletePost(@PathVariable Long id)
-    {
-        Boolean deletedPost = postService.deletePost(id);
-        if (deletedPost){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        else{
-            throw new ResourceNotFoundException("No existe el post a borrar.");
-        }
-        
-    }
-    
-    
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> handleNotValidException (MethodArgumentNotValidException ex)
-    {   
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-    
+	@GetMapping
+	public ResponseEntity<Page<PostDto>> getAllPosts(
+			@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+		Page<PostDto> postPage = postService.findAllPost(pageable);
+		return ResponseEntity.ok(postPage);
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Post> getPostById(@PathVariable Long id) {
+		Post post = postService.findPostById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("No existe el post."));
+
+		return ResponseEntity.ok(post);
+
+	}
+
+	@PostMapping
+	public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) {
+		Post createdPost = postService.createPost(post);
+
+		return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<Post> updatePost(@Valid @PathVariable Long id,
+			@RequestBody Post postDetails) {
+		Post updatePost = postService.updatePost(id, postDetails)
+				.orElseThrow(() -> new ResourceNotFoundException("No existe el post a actualizar."));
+
+		return ResponseEntity.ok(updatePost);
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Post> deletePost(@PathVariable Long id) {
+		Boolean deletedPost = postService.deletePost(id);
+		if (deletedPost) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} else {
+			throw new ResourceNotFoundException("No existe el post a borrar.");
+		}
+
+	}
+
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<String> handleNotValidException(MethodArgumentNotValidException ex) {
+		return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+	}
+
 }
