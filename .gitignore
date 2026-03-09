@@ -1,3 +1,7 @@
+# ============================================
+# JAVA / MAVEN / SPRING BOOT
+# ============================================
+
 # Compiled class files
 *.class
 
@@ -9,18 +13,90 @@
 *.tar.gz
 *.rar
 
-# Maven/Gradle build output directories
+# Maven build output
 /target/
 /build/
+!**/src/main/**/target/
+!**/src/test/**/target/
 
-# Maven wrapper files (executable scripts are usually kept, but the downloaded JAR can be ignored)
+# Maven wrapper (mantener scripts, ignorar JAR descargado)
 .mvn/wrapper/maven-wrapper.jar
+
+# Gradle (si lo usas)
+.gradle/
+/build/
+!gradle/wrapper/gradle-wrapper.jar
 
 # Log files
 *.log
 logs/
 
-# IDE specific files and directories
+# ============================================
+# NODE.JS / REACT / VITE (FRONTEND)
+# ============================================
+
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Build output
+/dist/
+/dist-ssr/
+/build/
+*.local
+
+# Vite
+.vite/
+
+# Coverage
+/coverage/
+.nyc_output/
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+
+# TypeScript
+*.tsbuildinfo
+
+# ============================================
+# DOCKER
+# ============================================
+
+# Environment files (sensibles)
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Docker volumes (si usas bind mounts locales)
+docker-volumes/
+
+# ============================================
+# IDE / EDITORES
+# ============================================
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Eclipse
+.classpath
+.project
+.settings/
+.factorypath
+.apt_generated
+.springBeans
+.sts4-cache
+
+# VS Code
+.vscode/
+*.code-workspace
 
 # NetBeans
 /nbproject/private/
@@ -28,44 +104,50 @@ logs/
 /dist/
 /nbdist/
 /.nb-gradle/
-# NetBeans userdir/cache files (sometimes generated outside project root, but good to have)
-# /~/.netbeans/
 
-# IntelliJ IDEA (common for many Java devs)
-.idea/
-*.iws
-*.iml
-*.ipr
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
 
-# Eclipse (common for many Java devs)
-.classpath
-.project
-.settings/
-.factorypath
-.apt_generated
-.springBeans
-.sts4-cache # STS specific
+# ============================================
+# SISTEMA OPERATIVO
+# ============================================
 
-# VS Code
-.vscode/
-
-# Operating System Files
-.DS_Store # macOS
-Thumbs.db # Windows
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
 .localized
+Icon?
+._*
+
+# Windows
+Thumbs.db
 ehthumbs.db
 Desktop.ini
+$RECYCLE.BIN/
+*.lnk
 
-# Environment variables files (often contain sensitive info)
-.env
-.env.*
+# Linux
+*~
+.nfs*
 
-# Generated test reports/output
+# ============================================
+# ARCHIVOS TEMPORALES / BACKUPS
+# ============================================
+
+*.bak
+*.swp
+*.swo
+*~
+*.tmp
+*.temp
+
+# ============================================
+# TESTS / REPORTES
+# ============================================
+
 /test-output/
 /surefire-reports/
 /failsafe-reports/
-
-# Other temporary files
-*~
-*.bak
-*.swp
+/jacoco.exec

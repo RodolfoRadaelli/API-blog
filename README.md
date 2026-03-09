@@ -1,6 +1,6 @@
 # API BLOG
 
-Este repositorio es una API RESTful para gestionar posts en un sistema de blog. Permite operaciones CRUD básicas a través de endpoints HTTP y devuelve JSON.
+Este repositorio es una aplicación web Full-Stack para gestionar posts en un sistema de blog. Permite operaciones CRUD básicas a través de endpoints HTTP y devuelve JSON, además se creó una SPA con React para consumir estos servicios.
 
 ## Tecnologías Utilizadas
 
@@ -11,9 +11,14 @@ Este repositorio es una API RESTful para gestionar posts en un sistema de blog. 
 * **H2**
 * **Lombok**
 * **Validation**
-* **Lombok**
 * **Spring Security**
 * **JWT**
+* **JUnit**
+* **Mockito**
+* **Docker**
+* **DockerCompose**
+* **React**
+* **Typescript**
 
 ## Funcionalidades (CRUD Básico)
 
@@ -60,8 +65,7 @@ Puedes usar parámetros de consulta como `/api/posts?page=0&size=10&sort=title,a
 
 ### Requisitos Previos
 
-* Java Development Kit (JDK) 17
-* Maven 3.x (o superior, se recomienda usar el wrapper)
+* Docker
 
 ### Pasos para Ejecutar Localmente
 
@@ -70,24 +74,19 @@ Puedes usar parámetros de consulta como `/api/posts?page=0&size=10&sort=title,a
     git clone https://github.com/RodolfoRadaelli/API-blog.git
     cd tu-repositorio
     ```
-2.  **Configurar la base de datos:**
-	* Se utiliza H2 no se requiere configuración.
+2.  **Inicializar aplicación**
+	* docker compose up --build -d
 
-3.  **Construir el proyecto:**
-    * Maven:
-        ```bash
-        ./mvnw clean install
-        ```
-4.  **Ejecutar la aplicación:**
-    * Maven:
-        ```bash
-        java -jar target/*.jar
-        ```
-La API estará disponible en `http://localhost:8080`.
+3.  **Ejecutar la aplicación**
+    * Navegador: http://localhost
+
+**ATENCIÓN: La API tiene 2 usuarios por defecto** Pero puedes crear tu propio admin y usuario.
+
+La API esta disponible en `http://localhost:8080`.
 
 ## Cómo Probar la API
 
-La API viene cargada con datos por defecto, puede consultarse desde `http://localhost:8080/api/posts`
+La API viene cargada con datos por defecto.
     También vienen cargados con dos usuarios:
         Admin: Admin, 1234, ROLE_ADMIN
         Usuario: Mauro123, 1234, ROLE_USER
