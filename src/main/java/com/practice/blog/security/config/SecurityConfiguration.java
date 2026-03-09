@@ -28,14 +28,23 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+	@Autowired
+	private PostAuthorizationFilter postAuthorizationFilter;
 
 	@Autowired
 	private UserDetailsServiceImpl userDetailService;
 	@Autowired
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+	// Para CORS
+	@Value("${cors.allowed-origins:http://localhost,http://localhost:80,http://127.0.0.1,http://127.0.0.1:8080,http://localhost:8080}")
+	private String allowedOrigins;
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -45,6 +54,7 @@ public class SecurityConfiguration {
 				.sessionManagement(session -> session
 						.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(registry -> {
+					registry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
 					registry.requestMatchers("/home", "/register/**",
 							"/authenticate", "/api/posts").permitAll();
 					registry.requestMatchers("/admin/**").hasRole("ADMIN");
@@ -59,6 +69,7 @@ public class SecurityConfiguration {
 								"Acceso denegado")))
 				.addFilterBefore(jwtAuthenticationFilter,
 						UsernamePasswordAuthenticationFilter.class)
+				.addFilterAfter(postAuthorizationFilter, JwtAuthenticationFilter.class)
 				.build();
 	}
 
@@ -66,19 +77,27 @@ public class SecurityConfiguration {
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 
-		// Origen de tu React
-		configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+		// Parsear orígenes desde variable de entorno
+		List<String> origins = Arrays.asList(allowedOrigins.split(","));
+		configuration.setAllowedOrigins(origins);
 
 		// Métodos HTTP permitidos
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 
 		// Todos los headers permitidos
-		configuration.setAllowedHeaders(List.of("*"));
+		configuration.setAllowedHeaders(Arrays.asList(
+				"Authorization",
+				"Content-Type",
+				"Accept",
+				"Origin",
+				"X-Requested-With",
+				"Access-Control-Request-Method",
+				"Access-Control-Request-Headers"));
 
-		// Permitir envío de credentials (Authorization header)
+		// Exponer headers
+		configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
+
 		configuration.setAllowCredentials(true);
-
-		// Aplicar a todas las rutas
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 
